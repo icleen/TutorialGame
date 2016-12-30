@@ -12,6 +12,8 @@ public abstract class GameObject {
 		this.x = x;
 		this.y = y;
 		this.id = id;
+		velX = 0;
+		velY = 0;
 	}
 	
 	public abstract void tick();
@@ -35,13 +37,13 @@ public abstract class GameObject {
 	public ID getID() {
 		return this.id;
 	}
-	public void setJVelX( int x ) {
+	public void setVelX( int x ) {
 		this.velX = x;
 	}
 	public int getVelX() {
 		return this.velX;
 	}
-	public void setJVelY( int y ) {
+	public void setVelY( int y ) {
 		this.velY = y;
 	}
 	public int getVelY() {
