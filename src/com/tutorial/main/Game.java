@@ -9,19 +9,23 @@ public class Game extends Canvas implements Runnable {
 	
 	private static final long serialVersionUID = 1550691097823471818L;
 	
-	public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
+	public static final int WIDTH = 640, HEIGHT = WIDTH / 16 * 9;
 	
 	private Thread thread;
 	private boolean running = false;
 	
+	private Handler handler;
+	
 	public Game() {
-		new Window( WIDTH, HEIGHT, "Let's Build a Game", this );
+		new Window( WIDTH, HEIGHT, "Let's Build a Game!", this );
+		
+		handler = new Handler();
 	}
 	
 	public synchronized void start() {
 		thread = new Thread( this );
-		this.start();
-		this.running = true;
+		thread.start();
+		running = true;
 	}
 	
 	public synchronized void stop() {
@@ -36,7 +40,7 @@ public class Game extends Canvas implements Runnable {
 	public void run() {
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
-		double ns = 100000000 / amountOfTicks;
+		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
 		int frames = 0;
@@ -63,7 +67,7 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	private void tick() {
-		
+		handler.tick();
 	}
 	
 	private void render() {
@@ -77,6 +81,8 @@ public class Game extends Canvas implements Runnable {
 		
 		g.setColor( Color.blue );
 		g.fillRect( 0, 0, WIDTH, HEIGHT );
+		
+		handler.render( g );
 		
 		g.dispose();
 		bs.show();
